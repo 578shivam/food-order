@@ -352,13 +352,13 @@
             <strong>Total</strong>
             <span class="toatal-money">0</span>
             <div class="product-item">
-                <img src="Momos-snap.jpg">
+              <!----  <img src="Momos-snap.jpg">
                 <h3>name</h3>
-                <p class="money">0</p>
+                <p class="money">0</p>-->
             </div>
             <div class="order">
                 <button class="white cls-button">close</button>
-                <button class="yellow">checkpoints</button>
+              <a href="Sign.html"><button class="yellow">checkpoints</button></a>
             </div>
         </div>
     </nav>
@@ -469,6 +469,37 @@
             event.preventDefault();
             money.classList.toggle("fadecheck");
         });
+        document.querySelectorAll('.btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const product = this.closest('.food-1');
+        const productName = product.querySelector('h2').innerText;
+        const productPrice = parseFloat(product.querySelector('p').innerText.replace('₹', ''));
+        const productImage = product.querySelector('img').src;
+        const cartTotal = document.querySelector('.toatal-money');
+        const cartItem = document.createElement('div');
+        cartItem.classList.add('product-item');
+        cartItem.innerHTML = `
+            <img src="${productImage}">
+            <div>
+                <h3>${productName}</h3>
+                <p class="money">${productPrice}</p>
+            </div>
+        `;
+        document.querySelector('.cart').insertBefore(cartItem, cartTotal);
+        updateTotal();
+    });
+});
+
+function updateTotal() {
+    const prices = document.querySelectorAll('.money');
+    let total = 0;
+    prices.forEach(price => {
+        total += parseFloat(price.innerText);
+    });
+    document.querySelector('.toatal-money').innerText = total;
+}
+
+        
 
 
     </script>
